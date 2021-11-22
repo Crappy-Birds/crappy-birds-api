@@ -11,8 +11,7 @@ import { DatabaseService } from "./database/services/database";
 import "./api/controllers/wallet-controller";
 
 const container = new Container()
-
-const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+const client = new Client({ intents: [Intents.FLAGS.GUILDS,Intents.FLAGS.GUILD_MEMBERS] });
 
 container.bind<Client>(TYPES.DISCORD_CLIENT).toConstantValue(client)
 container.bind<Bot>(TYPES.DISCORD_BOT).to(Bot).inSingletonScope()
@@ -24,7 +23,6 @@ container.bind<String>(TYPES.DISCORD_BOT_SERVER).toConstantValue(process.env.DIS
 container.bind<String>(TYPES.DISCORD_BOT_CLIENT).toConstantValue(process.env.DISCORD_BOT_CLIENT);
 container.bind<String>(TYPES.WEBSITE).toConstantValue(process.env.WEBSITE);
 container.bind<String>(TYPES.PRIVATE_KEY).toConstantValue(process.env.PRIVATE_KEY);
-container.bind<String>(TYPES.PRIVATE_IV).toConstantValue(process.env.PRIVATE_IV);
 container.bind<String>(TYPES.EARLY_BIRD_ID).toConstantValue(process.env.EARLY_BIRD_ID);
 
 container.bind<String>(TYPES.DB_HOST).toConstantValue(process.env.DB_HOST);

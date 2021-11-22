@@ -11,8 +11,6 @@ export class EarlyCommand implements ICommand {
     constructor(
         @inject(TYPES.WEBSITE) private website: String,
         @inject(TYPES.PRIVATE_KEY) private privateKey: string,
-        @inject(TYPES.PRIVATE_IV) private  privateIV: string,
-
     ) {
     }
 
@@ -30,7 +28,7 @@ export class EarlyCommand implements ICommand {
         const embedDm = new MessageEmbed()
             .setColor('#ff0090')
             .setTitle('Connect your account')
-            .setURL(`${this.website.toString()}/wallet/${encrypt(Buffer.from(command.user.id, 'utf8'),this.privateKey,this.privateIV)}`)
+            .setURL(`${this.website.toString()}/wallet/${encrypt(command.user.id.toString(),this.privateKey)}`)
             .setDescription('allows you to link your wallet with the discord account and benefit from an early-bird role');
         await command.user.send({ embeds: [embedDm] });
         //await command.member.roles.push(process.env.EARLY_BIRD_ROLE_ID);

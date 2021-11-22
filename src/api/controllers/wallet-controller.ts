@@ -6,7 +6,7 @@ import { Logger } from "../../utils/logger";
 import { ICreateWalletDiscord } from "../interfaces/wallet-discord-interface";
 import { getConnection } from "typeorm";
 import WalletDiscord from "../../database/entities/wallet-discord";
-import { Client } from "discord.js";
+import { Client, MessageEmbed } from "discord.js";
 import { decrypt, encrypt } from "../../utils/crypt"
 
 @controller("/wallet")
@@ -17,7 +17,6 @@ export class WalletController {
         @inject(TYPES.DISCORD_CLIENT) private client: Client,
         @inject(TYPES.DISCORD_BOT_SERVER) private serverId: string,
         @inject(TYPES.PRIVATE_KEY) private privateKey: string,
-        @inject(TYPES.PRIVATE_IV) private privateIV: string,
         @inject(TYPES.EARLY_BIRD_ID) private earlyBirdId: string,
 
     ) {
@@ -28,32 +27,35 @@ export class WalletController {
         @requestBody() body: ICreateWalletDiscord,
         request: Request,
         response: Response) {
-
         try {
             let walletDiscord: WalletDiscord | undefined = await getConnection().getRepository(WalletDiscord).findOne({ walletAddress: body.walletAddress })
             if (walletDiscord == undefined) {
-                const newWalletDiscord = new WalletDiscord();
-                newWalletDiscord.discordAddress = body.discordAddress.toString();
-                newWalletDiscord.walletAddress = body.walletAddress.toString();
-                var server = this.client.guilds.cache.get(this.serverId);
-                console.log(body.discordAddress.toString())
-                console.log(this.privateKey)
+                var server = await this.client.guilds.fetch(this.serverId);
+                var userId = decrypt(body.discordAddress.toString(), this.privateKey);
+                var user = await server.members.fetch(userId);
+                if (user) {
 
-                console.log(decrypt(body.discordAddress.toString(),this.privateKey,this.privateIV))
-                var user = server.members.cache.get(decrypt(body.discordAddress.toString(),this.privateKey,this.privateIV));
-                if(user){
                     await user.roles.add(this.earlyBirdId)
-                    await getConnection().getRepository(WalletDiscord).save(walletDiscord)
+                    const newWalletDiscord = new WalletDiscord();
+                    newWalletDiscord.discordAddress = userId.toString();
+                    newWalletDiscord.walletAddress = body.walletAddress.toString();
+                    await getConnection().getRepository(WalletDiscord).save(newWalletDiscord)
+                    const embedDm = new MessageEmbed()
+                        .setColor('#ff0090')
+                        .setTitle('Account Linked')
+                        .setDescription('Your discord is now linked to your wallet :)')
+
+                    await user.send({ embeds: [embedDm] });
                     return response.send({
                         type: "success"
                     });
-                }else{
+                } else {
                     this.logger.log("[ERROR]", "The user dont exist on server.");
                     return response.status(500).send({
                         type: "error"
                     });
                 }
-                
+
 
             } else {
                 this.logger.log("[ERROR]", "The wallet already registred.");
