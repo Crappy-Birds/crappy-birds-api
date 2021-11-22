@@ -1,5 +1,5 @@
 {
-  "name": "MarketPlaceAPI",
+  "name": "crappy-birds-api",
   "version": "1.0.0",
   "description": "server api for crappy bird",
   "main": "index.js",
