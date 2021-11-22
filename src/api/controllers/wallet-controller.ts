@@ -69,7 +69,7 @@ export class WalletController {
             this.logger.log("[ERROR]", error);
             return response.status(500).send({
                 type: "error",
-                error: error
+                error: "Invalid identifier, please use the link sent by the bot."
             });
         }
     }
