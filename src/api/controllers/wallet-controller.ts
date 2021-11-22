@@ -52,7 +52,8 @@ export class WalletController {
                 } else {
                     this.logger.log("[ERROR]", "The user dont exist on server.");
                     return response.status(500).send({
-                        type: "error"
+                        type: "error",
+                        error: "The user dont exist on server."
                     });
                 }
 
@@ -60,11 +61,16 @@ export class WalletController {
             } else {
                 this.logger.log("[ERROR]", "The wallet already registred.");
                 return response.status(500).send({
-                    type: "error"
+                    type: "error",
+                    error: "The wallet already registred."
                 });
             }
         } catch (error) {
             this.logger.log("[ERROR]", error);
+            return response.status(500).send({
+                type: "error",
+                error: error
+            });
         }
     }
 }
