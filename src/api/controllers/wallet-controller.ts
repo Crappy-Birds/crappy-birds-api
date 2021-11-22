@@ -41,9 +41,9 @@ export class WalletController {
                     newWalletDiscord.walletAddress = body.walletAddress.toString();
                     await getConnection().getRepository(WalletDiscord).save(newWalletDiscord)
                     const embedDm = new MessageEmbed()
-                        .setColor('#ff0090')
-                        .setTitle('Account Linked')
-                        .setDescription('Your discord is now linked to your wallet :)')
+                        .setColor('#E682F0')
+                        .setTitle('Account Linked !')
+                        .setDescription('Early Bird role assigned ! Your discord account is successfuly linked to your wallet.')
 
                     await user.send({ embeds: [embedDm] });
                     return response.send({

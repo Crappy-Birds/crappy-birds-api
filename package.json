@@ -12,6 +12,9 @@
   "keywords": [],
   "author": "CrappyBird core team",
   "license": "ISC",
+  "engines": {
+    "node": ">=16.6.0"
+  },
   "devDependencies": {
     "@discordjs/builders": "^0.6.0",
     "@discordjs/rest": "^0.1.0-canary.0",
