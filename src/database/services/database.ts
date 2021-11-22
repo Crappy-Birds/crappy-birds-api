@@ -31,7 +31,13 @@ export class DatabaseService {
                     "dist/database/entities/*.js"
                 ],
                 synchronize: false,
-                logging: false
+                logging: false,
+                ssl: true,
+                extra: {
+                  "ssl": {
+                    "rejectUnauthorized": false
+                  }
+                }
             }).then(() => {
                 this.logger.log('⚡️[db]',`Database is connected and loaded at ${this.DB_HOST}:${this.DB_PORT} (${this.DB_NAME}:${this.DB_TYPE})`);
                 res()
