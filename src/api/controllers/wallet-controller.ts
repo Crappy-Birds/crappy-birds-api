@@ -43,26 +43,26 @@ export class WalletController {
                     const embedDm = new MessageEmbed()
                         .setColor('#E682F0')
                         .setTitle('Account Linked !')
-                        .setDescription('Early Bird role assigned ! Your discord account is successfuly linked to your wallet.')
+                        .setDescription('Early Bird role assigned ! Your discord account has been successfully linked to your wallet.')
 
                     await user.send({ embeds: [embedDm] });
                     return response.send({
                         type: "success"
                     });
                 } else {
-                    this.logger.log("[ERROR]", "The user dont exist on server.");
+                    this.logger.log("[ERROR]", "You're not part of the discord server.");
                     return response.status(500).send({
                         type: "error",
-                        error: "The user dont exist on server."
+                        error: "You're not part of the discord server."
                     });
                 }
 
 
             } else {
-                this.logger.log("[ERROR]", "The wallet already registred.");
+                this.logger.log("[ERROR]", "Your wallet is already registered.");
                 return response.status(500).send({
                     type: "error",
-                    error: "The wallet already registred."
+                    error: "Your wallet is already registered."
                 });
             }
         } catch (error) {
