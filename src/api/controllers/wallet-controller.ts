@@ -17,7 +17,7 @@ export class WalletController {
         @inject(TYPES.DISCORD_CLIENT) private client: Client,
         @inject(TYPES.DISCORD_BOT_SERVER) private serverId: string,
         @inject(TYPES.PRIVATE_KEY) private privateKey: string,
-        @inject(TYPES.EARLY_BIRD_ID) private earlyBirdId: string,
+        @inject(TYPES.ROLE_EARLY_BIRD_ID) private earlyBirdId: string,
 
     ) {
 

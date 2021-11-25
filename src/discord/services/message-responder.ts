@@ -10,12 +10,11 @@ export class MessageResponder {
 
     private prefix: string;
     private commands: ICommand[];
-    private client: any;
 
     constructor(
-        @inject(TYPES.DISCORD_CLIENT) client: Client,
+        @inject(TYPES.DISCORD_CLIENT) private client: Client,
         @inject(TYPES.DISCORD_BOT_TOKEN) token: string,
-        @inject(TYPES.DISCORD_BOT_SERVER) serverId: string,
+        @inject(TYPES.DISCORD_BOT_SERVER) private serverId: string,
         @inject(TYPES.DISCORD_BOT_CLIENT) clientId: string,
         @inject(TYPES.DISCORD_COMMAND) @named("GM") gmCommand: ICommand,
         @inject(TYPES.DISCORD_COMMAND) @named("GN") gnCommand: ICommand,
@@ -35,6 +34,7 @@ export class MessageResponder {
         rest.put(Routes.applicationGuildCommands(clientId, serverId), { body: this.commands.map(command => command.data.toJSON()) })
             .then(() => console.log('Successfully registered application commands.'))
             .catch(console.error);
+
     }
 
     async handle(command: CommandInteraction): Promise<void> {

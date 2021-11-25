@@ -9,6 +9,7 @@ import ICommand from "./discord/services/interfaces/ICommand";
 import { Logger } from "./utils/logger";
 import { DatabaseService } from "./database/services/database";
 import "./api/controllers/wallet-controller";
+import { CommandPermission } from "./discord/services/command-permission";
 
 const container = new Container()
 const client = new Client({ intents: [Intents.FLAGS.GUILDS,Intents.FLAGS.GUILD_MEMBERS] });
@@ -17,13 +18,15 @@ container.bind<Client>(TYPES.DISCORD_CLIENT).toConstantValue(client)
 container.bind<Bot>(TYPES.DISCORD_BOT).to(Bot).inSingletonScope()
 container.bind<Logger>(TYPES.LOGGER).to(Logger).inSingletonScope()
 container.bind<DatabaseService>(TYPES.DATABASE_SERVICE).to(DatabaseService).inSingletonScope()
+container.bind<CommandPermission>(TYPES.DISCORD_COMMAND_PERMISSION).to(CommandPermission).inSingletonScope()
 
 container.bind<String>(TYPES.DISCORD_BOT_TOKEN).toConstantValue(process.env.DISCORD_BOT_TOKEN);
 container.bind<String>(TYPES.DISCORD_BOT_SERVER).toConstantValue(process.env.DISCORD_BOT_SERVER);
 container.bind<String>(TYPES.DISCORD_BOT_CLIENT).toConstantValue(process.env.DISCORD_BOT_CLIENT);
 container.bind<String>(TYPES.WEBSITE).toConstantValue(process.env.WEBSITE);
 container.bind<String>(TYPES.PRIVATE_KEY).toConstantValue(process.env.PRIVATE_KEY);
-container.bind<String>(TYPES.EARLY_BIRD_ID).toConstantValue(process.env.EARLY_BIRD_ID);
+container.bind<String>(TYPES.ROLE_EARLY_BIRD_ID).toConstantValue(process.env.ROLE_EARLY_BIRD_ID);
+container.bind<String>(TYPES.ROLE_EVERYONE_ID).toConstantValue(process.env.ROLE_EVERYONE_ID);
 
 container.bind<String>(TYPES.DB_HOST).toConstantValue(process.env.DB_HOST);
 container.bind<String>(TYPES.DB_NAME).toConstantValue(process.env.DB_NAME);
