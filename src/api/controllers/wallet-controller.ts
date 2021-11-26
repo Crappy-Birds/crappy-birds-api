@@ -18,6 +18,7 @@ export class WalletController {
         @inject(TYPES.DISCORD_BOT_SERVER) private serverId: string,
         @inject(TYPES.PRIVATE_KEY) private privateKey: string,
         @inject(TYPES.ROLE_EARLY_BIRD_ID) private earlyBirdId: string,
+        @inject(TYPES.ROLE_NESTLING_ID) private nestlingId: string,
 
     ) {
 
@@ -36,9 +37,14 @@ export class WalletController {
                 if (user) {
 
                     await user.roles.add(this.earlyBirdId)
+                    await user.roles.remove(this.nestlingId)
+                    
                     const newWalletDiscord = new WalletDiscord();
                     newWalletDiscord.discordAddress = userId.toString();
                     newWalletDiscord.walletAddress = body.walletAddress.toString();
+                    newWalletDiscord.createdAt = new Date()
+                    newWalletDiscord.updatedAt = new Date()
+
                     await getConnection().getRepository(WalletDiscord).save(newWalletDiscord)
                     const embedDm = new MessageEmbed()
                         .setColor('#E682F0')
