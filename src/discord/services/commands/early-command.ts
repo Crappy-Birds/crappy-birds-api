@@ -10,7 +10,7 @@ export class EarlyCommand implements ICommand {
     constructor(@inject(TYPES.WEBSITE) private website: String, @inject(TYPES.PRIVATE_KEY) private privateKey: string) {}
 
     readonly commandName: string = "early";
-    readonly data: SlashCommandBuilder = new SlashCommandBuilder().setName(this.commandName).setDescription("Early bird catches the worm");
+    readonly data: SlashCommandBuilder = new SlashCommandBuilder().setName(this.commandName).setDescription("Early bird catches the worm").setDefaultPermission(false);
 
     public isMatching(commandName: string): boolean {
         return this.commandName == commandName;

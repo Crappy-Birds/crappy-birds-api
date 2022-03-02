@@ -1,11 +1,3 @@
 # CrappyBird API
 
-
-
-## Getting Started
-
-```bash
-npm install
-
-npm run start
-```
+Crappy Bird Discord Bot & API

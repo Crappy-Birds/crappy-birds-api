@@ -10,7 +10,7 @@ export class CommandPermission {
     constructor(
         @inject(TYPES.DISCORD_CLIENT) private client: Client,
         @inject(TYPES.DISCORD_BOT_SERVER) private serverId: string,
-        @inject(TYPES.ROLE_EARLY_BIRD_ID) private earlyBirdId: string,
+        @inject(TYPES.ROLE_NESTLING_ID) private nestlingId: string,
         @inject(TYPES.ROLE_EVERYONE_ID) private everyOneId: string,
         @inject(TYPES.LOGGER) private logger: Logger,
 
@@ -26,14 +26,12 @@ export class CommandPermission {
         })
 
         await (await guild.commands.fetch()).forEach(async commandSlash => {
-
             if(commandSlash.name == "early"){
-                console.log("here")
                 await commandSlash.permissions.add({
                     permissions: [{
-                        id: this.earlyBirdId,
+                        id: this.nestlingId,
                         type: 'ROLE',
-                        permission: false
+                        permission: true
                     }]
                 })
             }else{              

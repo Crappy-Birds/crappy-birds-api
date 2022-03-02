@@ -27,6 +27,7 @@ container.bind<String>(TYPES.WEBSITE).toConstantValue(process.env.WEBSITE);
 container.bind<String>(TYPES.PRIVATE_KEY).toConstantValue(process.env.PRIVATE_KEY);
 container.bind<String>(TYPES.ROLE_EARLY_BIRD_ID).toConstantValue(process.env.ROLE_EARLY_BIRD_ID);
 container.bind<String>(TYPES.ROLE_EVERYONE_ID).toConstantValue(process.env.ROLE_EVERYONE_ID);
+container.bind<String>(TYPES.ROLE_NESTLING_ID).toConstantValue(process.env.ROLE_NESTLING_ID);
 
 container.bind<String>(TYPES.DB_HOST).toConstantValue(process.env.DB_HOST);
 container.bind<String>(TYPES.DB_NAME).toConstantValue(process.env.DB_NAME);
