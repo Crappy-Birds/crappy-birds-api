@@ -19,7 +19,7 @@ export class EarlyCommand implements ICommand {
     public async execute(command: CommandInteraction): Promise<void> {
 
         const row = new MessageActionRow().addComponents(
-            new MessageButton().setCustomId("primary").setLabel("Connect Wallet").setURL(`${this.website.toString()}/${encrypt(command.user.id.toString(), this.privateKey)}`).setStyle("LINK")
+            new MessageButton().setLabel("Connect Wallet").setURL(`${this.website.toString()}/${encrypt(command.user.id.toString(), this.privateKey)}`).setStyle("LINK")
         );
 
         await command.reply({ ephemeral: true, components: [row] });
