@@ -65,7 +65,7 @@ export class WalletController {
 
 
             } else {
-                this.logger.log("[ERROR]", "Your wallet is already registered.");
+                this.logger.log("[ERROR]", `Your wallet (${walletDiscord.discordAddress}) is already registered.`);
                 return response.status(500).send({
                     type: "error",
                     error: "Your wallet is already registered."
