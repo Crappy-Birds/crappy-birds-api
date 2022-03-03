@@ -21,7 +21,7 @@ class Logger {
         });
     }
     log(type: string, message: string): void {
-        this.logger.info(message)
+        this.logger.info(`${type} - ${message}`)
     }
 }
 
