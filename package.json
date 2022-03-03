@@ -1,6 +1,6 @@
 {
   "name": "crappy-birds-api",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "server api for crappy bird",
   "main": "index.js",
   "scripts": {
